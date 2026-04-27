@@ -2,7 +2,7 @@ import axios from 'axios';
 import { DEMO_VENUE_LAYOUT } from '../data/venueLayout';
 import { MOCK_RESPONDERS } from '../lib/mockData';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://crisishub-backend-218461081005.asia-south1.run.app';
 const BROADCAST_CACHE_KEY = 'crisisHub.latestBroadcast';
 const BROADCAST_FEED_CACHE_KEY = 'crisisHub.broadcastFeed';
 
