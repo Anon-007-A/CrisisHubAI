@@ -546,10 +546,15 @@ export default function OpsDashboard() {
         guest_announcement: broadcastDraft,
         rationale: geminiAnalysis?.summary || selected.classification?.summary || null,
       });
-      setActiveBroadcast(response.broadcast);
-      setBroadcasts((current) => [response.broadcast, ...current.filter((item) => item.id !== response.broadcast.id)].slice(0, 5));
-      setBroadcastNotice('Broadcast published to the guest portal.');
-      setTimedNotice('Guest broadcast published and synced to the live loop.');
+      const broadcast = response.broadcast;
+      setActiveBroadcast(broadcast);
+      setBroadcasts((current) => [broadcast, ...current.filter((item) => item.id !== broadcast.id)].slice(0, 5));
+      setBroadcastNotice(broadcast?.fallback
+        ? 'Broadcast saved locally and shown on the guest portal until the live service reconnects.'
+        : 'Broadcast published to the guest portal.');
+      setTimedNotice(broadcast?.fallback
+        ? 'Guest broadcast cached locally and synced to the guest portal.'
+        : 'Guest broadcast published and synced to the live loop.');
     } catch (error) {
       setBroadcastNotice(getApiErrorMessage(error, 'Unable to publish broadcast'));
     } finally {

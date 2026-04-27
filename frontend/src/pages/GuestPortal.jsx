@@ -341,8 +341,12 @@ export default function GuestPortal() {
         const current = await fetchActiveBroadcast();
         if (!mounted) return;
         setActiveBroadcast(current || null);
-        setBroadcastStatus(current ? 'live' : 'idle');
-        setBroadcastMessage(current ? '' : 'No active guest broadcast right now.');
+        setBroadcastStatus(current ? (current.fallback ? 'cached' : 'live') : 'idle');
+        setBroadcastMessage(current
+          ? current.fallback
+            ? 'Showing the latest cached broadcast until the live service reconnects.'
+            : ''
+          : 'No active guest broadcast right now.');
       } catch (error) {
         if (!mounted) return;
         setBroadcastStatus('offline');
@@ -606,8 +610,19 @@ export default function GuestPortal() {
         <section className="guest-broadcast-banner" style={styles.broadcastBanner}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              <span className="status-dot-sm" />
-              <strong style={{ textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: 12 }}>Live safety broadcast</strong>
+              <span
+                className="status-dot-sm"
+                style={{
+                  background: broadcastStatus === 'live'
+                    ? 'var(--color-success)'
+                    : broadcastStatus === 'cached'
+                      ? 'var(--color-warning)'
+                      : 'var(--color-error)',
+                }}
+              />
+              <strong style={{ textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: 12 }}>
+                {broadcastStatus === 'cached' ? 'Cached safety broadcast' : 'Live safety broadcast'}
+              </strong>
               <span style={{ fontSize: 12, color: 'var(--color-on-surface-variant)' }}>{formatBroadcastScope(activeBroadcast)}</span>
             </div>
             <div style={{ fontWeight: 700, fontSize: 18, lineHeight: 1.35 }}>{activeBroadcast.title || 'Guest safety notice'}</div>
@@ -629,7 +644,7 @@ export default function GuestPortal() {
           <div style={{ minWidth: 180, textAlign: 'right' }}>
             <div style={{ fontSize: 12, color: 'var(--color-on-surface-variant)', marginBottom: 6 }}>Ops response</div>
             <div style={{ fontWeight: 700, color: 'var(--color-on-surface)' }}>
-              {broadcastStatus === 'live' ? 'Connected' : broadcastStatus === 'offline' ? 'Offline' : 'Loading'}
+              {broadcastStatus === 'live' ? 'Connected' : broadcastStatus === 'cached' ? 'Cached' : broadcastStatus === 'offline' ? 'Offline' : 'Loading'}
             </div>
             <div style={{ fontSize: 12, color: 'var(--color-on-surface-variant)', marginTop: 4 }}>
               {broadcastMessage || `Safe: ${activeBroadcast.ack_counts?.safe || 0} · Help: ${activeBroadcast.ack_counts?.need_help || 0} · Trapped: ${activeBroadcast.ack_counts?.trapped || 0}`}

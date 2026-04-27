@@ -3,6 +3,8 @@ import { DEMO_VENUE_LAYOUT } from '../data/venueLayout';
 import { MOCK_RESPONDERS } from '../lib/mockData';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || '';
+const BROADCAST_CACHE_KEY = 'crisisHub.latestBroadcast';
+const BROADCAST_FEED_CACHE_KEY = 'crisisHub.broadcastFeed';
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -11,6 +13,46 @@ export const apiClient = axios.create({
 
 function unwrapError(error, fallbackMessage) {
   return error?.response?.data?.detail || error?.message || fallbackMessage;
+}
+
+function canUseStorage() {
+  return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+}
+
+function readStoredJson(key, fallback = null) {
+  if (!canUseStorage()) return fallback;
+  try {
+    const raw = window.localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeStoredJson(key, value) {
+  if (!canUseStorage()) return;
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // Ignore storage quota / privacy mode issues.
+  }
+}
+
+function cacheBroadcast(broadcast) {
+  if (!broadcast) return broadcast;
+  const feed = readStoredJson(BROADCAST_FEED_CACHE_KEY, []);
+  const nextFeed = [broadcast, ...feed.filter((item) => item.id !== broadcast.id)].slice(0, 10);
+  writeStoredJson(BROADCAST_CACHE_KEY, broadcast);
+  writeStoredJson(BROADCAST_FEED_CACHE_KEY, nextFeed);
+  return broadcast;
+}
+
+function getCachedBroadcast() {
+  return readStoredJson(BROADCAST_CACHE_KEY, null);
+}
+
+function getCachedBroadcastFeed() {
+  return readStoredJson(BROADCAST_FEED_CACHE_KEY, []);
 }
 
 function normalizeText(value) {
@@ -306,6 +348,40 @@ function buildLocalTwinSimulation(payload) {
   };
 }
 
+function buildOfflineBroadcast(payload) {
+  const timestamp = new Date().toISOString();
+  const title = String(payload?.title || 'Guest safety notice').trim() || 'Guest safety notice';
+  const message = String(payload?.message || payload?.guest_announcement || 'Please stay calm and follow staff directions.').trim()
+    || 'Please stay calm and follow staff directions.';
+
+  return {
+    id: payload?.id || `broadcast-local-${Date.now()}`,
+    timestamp,
+    incident_id: payload?.incident_id || null,
+    incident_type: payload?.incident_type || 'unknown',
+    location: payload?.location || null,
+    scope: payload?.scope || 'venue',
+    floor: payload?.floor ?? null,
+    zone_id: payload?.zone_id ?? null,
+    tone: payload?.tone || 'calm',
+    title,
+    message,
+    audience: payload?.audience || (payload?.scope === 'venue' ? 'All guests' : String(payload?.scope || 'targeted guests').replace(/_/g, ' ')),
+    operator_name: payload?.operator_name || 'Operator',
+    status: payload?.draft_only ? 'draft' : 'active',
+    draft: {
+      title,
+      message,
+      guest_actions: payload?.guest_actions || ['Stay calm', 'Follow staff directions', 'Move to the nearest safe exit'],
+      recommended_action: payload?.recommended_action || null,
+    },
+    snapshot: payload?.snapshot || null,
+    ack_counts: payload?.ack_counts || { safe: 0, need_help: 0, trapped: 0, cannot_evacuate: 0 },
+    latest_ack: payload?.latest_ack || null,
+    fallback: true,
+  };
+}
+
 export async function fetchIncidents(limit = 20) {
   const response = await apiClient.get('/api/incidents', { params: { limit } });
   return response.data;
@@ -382,29 +458,101 @@ export async function simulateCrisisTwin(payload) {
 }
 
 export async function fetchBroadcasts({ limit = 10, incidentId = null, activeOnly = false } = {}) {
-  const response = await apiClient.get('/api/broadcasts', {
-    params: {
-      limit,
-      incident_id: incidentId || undefined,
-      active_only: activeOnly || undefined,
-    },
-  });
-  return response.data;
+  try {
+    const response = await apiClient.get('/api/broadcasts', {
+      params: {
+        limit,
+        incident_id: incidentId || undefined,
+        active_only: activeOnly || undefined,
+      },
+    });
+    const list = response.data || [];
+    list.forEach((broadcast) => cacheBroadcast(broadcast));
+    return list;
+  } catch (error) {
+    if (error?.response) throw error;
+    const cached = getCachedBroadcastFeed();
+    return incidentId
+      ? cached.filter((broadcast) => broadcast.incident_id === incidentId)
+      : cached.slice(0, limit);
+  }
 }
 
 export async function fetchActiveBroadcast() {
-  const response = await apiClient.get('/api/broadcasts/active');
-  return response.data;
+  try {
+    const response = await apiClient.get('/api/broadcasts/active');
+    const broadcast = response.data || null;
+    if (broadcast) cacheBroadcast(broadcast);
+    return broadcast;
+  } catch (error) {
+    if (error?.response) throw error;
+    return getCachedBroadcast();
+  }
 }
 
 export async function createBroadcast(payload) {
-  const response = await apiClient.post('/api/broadcasts', payload);
-  return response.data;
+  try {
+    const response = await apiClient.post('/api/broadcasts', payload);
+    if (response?.data?.broadcast && !payload?.draft_only) cacheBroadcast(response.data.broadcast);
+    return response.data;
+  } catch (error) {
+    if (error?.response) throw error;
+    const broadcast = buildOfflineBroadcast(payload);
+    if (!payload?.draft_only) cacheBroadcast(broadcast);
+    return { broadcast, draft: broadcast.draft };
+  }
 }
 
 export async function acknowledgeBroadcast(broadcastId, payload) {
-  const response = await apiClient.post(`/api/broadcasts/${broadcastId}/ack`, payload);
-  return response.data;
+  try {
+    const response = await apiClient.post(`/api/broadcasts/${broadcastId}/ack`, payload);
+    const ackResult = response.data || {};
+    const active = getCachedBroadcast();
+    if (active && active.id === broadcastId) {
+      const responseType = payload?.response_type || 'received';
+      const updated = {
+        ...active,
+        ack_counts: {
+          ...(active.ack_counts || {}),
+          [responseType]: (active.ack_counts?.[responseType] || 0) + 1,
+        },
+        latest_ack: {
+          response_type: responseType,
+          message: payload?.message || responseType,
+          timestamp: new Date().toISOString(),
+        },
+      };
+      cacheBroadcast(updated);
+    }
+    return ackResult;
+  } catch (error) {
+    if (error?.response) throw error;
+    const active = getCachedBroadcast();
+    if (active && active.id === broadcastId) {
+      const responseType = payload?.response_type || 'received';
+      const updated = {
+        ...active,
+        ack_counts: {
+          ...(active.ack_counts || {}),
+          [responseType]: (active.ack_counts?.[responseType] || 0) + 1,
+        },
+        latest_ack: {
+          response_type: responseType,
+          message: payload?.message || responseType,
+          timestamp: new Date().toISOString(),
+        },
+      };
+      cacheBroadcast(updated);
+      return {
+        id: `ack-local-${Date.now()}`,
+        broadcast_id: broadcastId,
+        status: 'received',
+        help_type: payload?.help_type || 'other',
+        offline: true,
+      };
+    }
+    throw error;
+  }
 }
 
 export async function fetchGuestHelpRequests({ limit = 50, status = null } = {}) {

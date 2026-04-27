@@ -281,6 +281,14 @@ export default function AuditTrailPage() {
                 key={ev.id}
                 className="audit-timeline-item"
                 onClick={() => setSelectedEvent(ev)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setSelectedEvent(ev);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
                 style={{ cursor: 'pointer' }}
               >
                 <div className={`audit-dot ${ev.dotClass}`} />
@@ -300,7 +308,19 @@ export default function AuditTrailPage() {
                     {ev.incidentId ? `Incident: ${ev.incidentId} · ` : ''}
                     {ev.reason?.slice(0, 120)}{ev.reason?.length > 120 ? '…' : ''}
                   </p>
-                  <span className="audit-expand-hint">Click to view full detail</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+                    <span className="audit-expand-hint">Click to view full detail</span>
+                    <button
+                      type="button"
+                      className="btn-tonal btn-sm"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        setSelectedEvent(ev);
+                      }}
+                    >
+                      View more
+                    </button>
+                  </div>
                 </div>
               </article>
             ))}

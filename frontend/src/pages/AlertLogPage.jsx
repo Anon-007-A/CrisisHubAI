@@ -102,7 +102,12 @@ function GuestReportCard({ incident }) {
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <SlaTimer createdAt={incident.timestamp} slaMins={cls.severity === 'critical' ? 5 : cls.severity === 'high' ? 10 : 20} status={incident.status} />
-          <button className="btn-tonal" onClick={() => setExpanded((value) => !value)} style={{ minWidth: 96 }}>
+          <button
+            type="button"
+            className="btn-tonal"
+            onClick={() => setExpanded((value) => !value)}
+            style={{ minWidth: 96, position: 'relative', zIndex: 1 }}
+          >
             {expanded ? 'Show less' : 'Show more'}
           </button>
         </div>
@@ -167,13 +172,14 @@ function AlertCard({ alert, onStatusChange }) {
         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <SlaTimer createdAt={alert.createdAt} slaMins={alert.slaTargetMinutes} status={alert.status} />
           <button
+            type="button"
             className="btn-tonal"
             onClick={() => onStatusChange(alert.id, 'acknowledged')}
             disabled={alert.status !== 'new'}
           >
             Ack
           </button>
-          <button className="btn-tonal" onClick={() => setExpanded((value) => !value)}>
+          <button type="button" className="btn-tonal" onClick={() => setExpanded((value) => !value)}>
             {expanded ? 'Less' : 'More'}
           </button>
         </div>
@@ -243,7 +249,7 @@ export default function AlertLogPage() {
 
   const pageStyles = {
     page: {
-      minHeight: '100vh',
+      minHeight: '100%',
       background: 'linear-gradient(180deg, var(--color-surface-dim) 0%, var(--color-surface) 100%)',
       color: 'var(--color-on-surface)',
     },
@@ -256,6 +262,7 @@ export default function AlertLogPage() {
       padding: '0 24px 24px',
       maxWidth: 1400,
       margin: '0 auto',
+      paddingBottom: 40,
     },
     sectionHeader: {
       display: 'flex',
