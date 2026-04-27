@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 720" width="100%" height="100%">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e8eaed" stroke-width="0.5" opacity="0.5"/>
+    </pattern>
+    <pattern id="grid-sm" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#f1f3f4" stroke-width="0.3" opacity="0.4"/>
+    </pattern>
+    <filter id="shadow" x="-2%" y="-2%" width="104%" height="104%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#3c4043" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="720" fill="#FAFBFC"/>
+  <rect width="900" height="720" fill="url(#grid-sm)"/>
+  <rect width="900" height="720" fill="url(#grid)"/>
+
+  <!-- Building Outline -->
+  <rect x="30" y="30" width="840" height="660" rx="6" fill="none" stroke="#bdc1c6" stroke-width="3" stroke-dasharray="none"/>
+
+  <!-- ═══ FLOOR 1 ZONES ═══ -->
+
+  <!-- Main Lobby (center) -->
+  <rect x="310" y="340" width="200" height="160" rx="4" fill="#F8F9FA" stroke="#DADCE0" stroke-width="2" filter="url(#shadow)"/>
+  <text x="370" y="420" font-family="Google Sans, sans-serif" font-size="16" font-weight="500" fill="#5F6368">MAIN LOBBY</text>
+  <text x="385" y="440" font-family="Roboto Mono, monospace" font-size="9" fill="#9AA0A6">lobby_main</text>
+
+  <!-- Lobby West -->
+  <rect x="140" y="340" width="170" height="160" rx="4" fill="#F8F9FA" stroke="#DADCE0" stroke-width="2"/>
+  <text x="175" y="420" font-family="Google Sans, sans-serif" font-size="13" font-weight="500" fill="#5F6368">LOBBY WEST</text>
+  <text x="180" y="440" font-family="Roboto Mono, monospace" font-size="8" fill="#9AA0A6">lobby_west</text>
+
+  <!-- Lobby East -->
+  <rect x="510" y="340" width="170" height="160" rx="4" fill="#F8F9FA" stroke="#DADCE0" stroke-width="2"/>
+  <text x="545" y="420" font-family="Google Sans, sans-serif" font-size="13" font-weight="500" fill="#5F6368">LOBBY EAST</text>
+  <text x="550" y="440" font-family="Roboto Mono, monospace" font-size="8" fill="#9AA0A6">lobby_east</text>
+
+  <!-- Front Desk -->
+  <rect x="340" y="270" width="140" height="70" rx="4" fill="#E8F0FE" stroke="#C5D9F9" stroke-width="1.5"/>
+  <text x="365" y="310" font-family="Google Sans, sans-serif" font-size="12" font-weight="500" fill="#1A73E8">FRONT DESK</text>
+
+  <!-- ═══ CORRIDORS ═══ -->
+
+  <!-- Corridor 1F-A (left) -->
+  <rect x="170" y="220" width="160" height="50" rx="3" fill="#F1F3F4" stroke="#E8EAED" stroke-width="1.5"/>
+  <text x="195" y="250" font-family="Roboto Mono, monospace" font-size="9" fill="#9AA0A6">1F CORRIDOR A</text>
+
+  <!-- Corridor 1F-B (right) -->
+  <rect x="490" y="220" width="160" height="50" rx="3" fill="#F1F3F4" stroke="#E8EAED" stroke-width="1.5"/>
+  <text x="515" y="250" font-family="Roboto Mono, monospace" font-size="9" fill="#9AA0A6">1F CORRIDOR B</text>
+
+  <!-- Corridor 1F-C (center top) -->
+  <rect x="330" y="150" width="160" height="40" rx="3" fill="#F1F3F4" stroke="#E8EAED" stroke-width="1.5"/>
+  <text x="355" y="175" font-family="Roboto Mono, monospace" font-size="9" fill="#9AA0A6">1F CORRIDOR C</text>
+
+  <!-- ═══ ROOMS ═══ -->
+
+  <!-- Room 101 -->
+  <rect x="70" y="140" width="130" height="110" rx="4" fill="#E8F0FE" stroke="#C5D9F9" stroke-width="1.5"/>
+  <text x="100" y="195" font-family="Google Sans, sans-serif" font-size="14" font-weight="500" fill="#1A73E8">Room 101</text>
+  <text x="105" y="215" font-family="Roboto Mono, monospace" font-size="8" fill="#9AA0A6">room_101</text>
+
+  <!-- Room 102 -->
+  <rect x="280" y="60" width="120" height="90" rx="4" fill="#E8F0FE" stroke="#C5D9F9" stroke-width="1.5"/>
+  <text x="300" y="105" font-family="Google Sans, sans-serif" font-size="14" font-weight="500" fill="#1A73E8">Room 102</text>
+  <text x="305" y="125" font-family="Roboto Mono, monospace" font-size="8" fill="#9AA0A6">room_102</text>
+
+  <!-- Room 103 -->
+  <rect x="420" y="60" width="120" height="90" rx="4" fill="#E8F0FE" stroke="#C5D9F9" stroke-width="1.5"/>
+  <text x="440" y="105" font-family="Google Sans, sans-serif" font-size="14" font-weight="500" fill="#1A73E8">Room 103</text>
+  <text x="445" y="125" font-family="Roboto Mono, monospace" font-size="8" fill="#9AA0A6">room_103</text>
+
+  <!-- ═══ SPECIAL ZONES ═══ -->
+
+  <!-- Kitchen -->
+  <rect x="660" y="130" width="170" height="130" rx="4" fill="#FCE8E6" stroke="#F5C6C1" stroke-width="2"/>
+  <text x="705" y="195" font-family="Google Sans, sans-serif" font-size="16" font-weight="600" fill="#D93025">KITCHEN</text>
+  <text x="720" y="215" font-family="Roboto Mono, monospace" font-size="8" fill="#EA4335">kitchen</text>
+  <!-- Kitchen hazard icon -->
+  <circle cx="815" cy="145" r="8" fill="#EA4335" opacity="0.2"/>
+  <text x="812" y="149" font-size="10" text-anchor="middle">🔥</text>
+
+  <!-- Restaurant -->
+  <rect x="600" y="280" width="140" height="100" rx="4" fill="#FEF7E0" stroke="#F5E6B8" stroke-width="1.5"/>
+  <text x="625" y="330" font-family="Google Sans, sans-serif" font-size="13" font-weight="500" fill="#7C5800">RESTAURANT</text>
+  <text x="630" y="350" font-family="Roboto Mono, monospace" font-size="8" fill="#9AA0A6">restaurant</text>
+
+  <!-- Conference A -->
+  <rect x="60" y="280" width="110" height="80" rx="4" fill="#E8F0FE" stroke="#C5D9F9" stroke-width="1.5"/>
+  <text x="72" y="320" font-family="Google Sans, sans-serif" font-size="11" font-weight="500" fill="#1A73E8">Conference A</text>
+  <text x="75" y="340" font-family="Roboto Mono, monospace" font-size="7" fill="#9AA0A6">conf_a</text>
+
+  <!-- Conference B -->
+  <rect x="60" y="410" width="110" height="90" rx="4" fill="#E8F0FE" stroke="#C5D9F9" stroke-width="1.5"/>
+  <text x="72" y="455" font-family="Google Sans, sans-serif" font-size="11" font-weight="500" fill="#1A73E8">Conference B</text>
+  <text x="75" y="472" font-family="Roboto Mono, monospace" font-size="7" fill="#9AA0A6">conf_b</text>
+
+  <!-- Pool Deck -->
+  <rect x="680" y="400" width="150" height="120" rx="8" fill="#E6F4EA" stroke="#A8DAB5" stroke-width="1.5"/>
+  <rect x="705" y="430" width="100" height="60" rx="16" fill="#B7E1CD" stroke="#81C995" stroke-width="1"/>
+  <text x="720" y="465" font-family="Google Sans, sans-serif" font-size="11" font-weight="500" fill="#137333">POOL</text>
+  <text x="710" y="510" font-family="Google Sans, sans-serif" font-size="10" font-weight="500" fill="#1E8E3E">Pool Deck</text>
+
+  <!-- Parking Garage -->
+  <rect x="50" y="510" width="140" height="80" rx="4" fill="#F1F3F4" stroke="#DADCE0" stroke-width="1.5"/>
+  <text x="68" y="550" font-family="Google Sans, sans-serif" font-size="11" font-weight="500" fill="#5F6368">PARKING</text>
+  <text x="68" y="568" font-family="Google Sans, sans-serif" font-size="11" font-weight="500" fill="#5F6368">GARAGE</text>
+
+  <!-- ═══ STAIRWELLS / ELEVATOR ═══ -->
+
+  <!-- Stairwell A -->
+  <rect x="60" y="215" width="45" height="55" rx="3" fill="#FEF7E0" stroke="#F5E6B8" stroke-width="1.5"/>
+  <text x="66" y="237" font-family="Roboto Mono, monospace" font-size="7" fill="#F29900">STAIR</text>
+  <text x="74" y="252" font-family="Roboto Mono, monospace" font-size="8" font-weight="600" fill="#F29900">A</text>
+  <!-- Stair pattern -->
+  <line x1="65" y1="258" x2="100" y2="258" stroke="#F29900" stroke-width="0.8"/>
+  <line x1="65" y1="262" x2="100" y2="262" stroke="#F29900" stroke-width="0.8"/>
+
+  <!-- Stairwell B -->
+  <rect x="710" y="215" width="45" height="55" rx="3" fill="#FEF7E0" stroke="#F5E6B8" stroke-width="1.5"/>
+  <text x="716" y="237" font-family="Roboto Mono, monospace" font-size="7" fill="#F29900">STAIR</text>
+  <text x="724" y="252" font-family="Roboto Mono, monospace" font-size="8" font-weight="600" fill="#F29900">B</text>
+  <line x1="715" y1="258" x2="750" y2="258" stroke="#F29900" stroke-width="0.8"/>
+  <line x1="715" y1="262" x2="750" y2="262" stroke="#F29900" stroke-width="0.8"/>
+
+  <!-- Elevator A -->
+  <rect x="385" y="215" width="50" height="50" rx="3" fill="#E8F0FE" stroke="#4285F4" stroke-width="1.5"/>
+  <text x="395" y="237" font-family="Roboto Mono, monospace" font-size="7" fill="#4285F4">ELEV</text>
+  <text x="404" y="252" font-family="Roboto Mono, monospace" font-size="8" font-weight="600" fill="#4285F4">A</text>
+
+  <!-- ═══ 2F SECTION ═══ -->
+
+  <rect x="250" y="560" width="320" height="120" rx="4" fill="#F8F9FA" stroke="#DADCE0" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="360" y="585" font-family="Google Sans, sans-serif" font-size="11" font-weight="500" fill="#9AA0A6">FLOOR 2</text>
+
+  <!-- Room 201 -->
+  <rect x="270" y="600" width="110" height="60" rx="3" fill="#E8F0FE" stroke="#C5D9F9" stroke-width="1"/>
+  <text x="290" y="632" font-family="Google Sans, sans-serif" font-size="12" font-weight="500" fill="#1A73E8">Room 201</text>
+
+  <!-- Room 202 -->
+  <rect x="440" y="600" width="110" height="60" rx="3" fill="#E8F0FE" stroke="#C5D9F9" stroke-width="1"/>
+  <text x="460" y="632" font-family="Google Sans, sans-serif" font-size="12" font-weight="500" fill="#1A73E8">Room 202</text>
+
+  <!-- ═══ EMERGENCY EXITS ═══ -->
+
+  <!-- Exit North -->
+  <rect x="370" y="30" width="80" height="24" rx="4" fill="#34A853"/>
+  <text x="383" y="47" font-family="Google Sans, sans-serif" font-size="10" font-weight="600" fill="white">EXIT NORTH</text>
+  <polygon points="410,58 404,65 416,65" fill="#34A853"/>
+
+  <!-- Exit South -->
+  <rect x="370" y="500" width="80" height="24" rx="4" fill="#34A853"/>
+  <text x="383" y="517" font-family="Google Sans, sans-serif" font-size="10" font-weight="600" fill="white">EXIT SOUTH</text>
+  <polygon points="410,498 404,491 416,491" fill="#34A853"/>
+
+  <!-- Exit East -->
+  <rect x="840" y="330" width="24" height="60" rx="4" fill="#34A853"/>
+  <text x="852" y="365" font-family="Google Sans, sans-serif" font-size="8" font-weight="600" fill="white" transform="rotate(90, 852, 365)">EXIT E</text>
+
+  <!-- Exit West -->
+  <rect x="30" y="390" width="24" height="60" rx="4" fill="#34A853"/>
+  <text x="42" y="425" font-family="Google Sans, sans-serif" font-size="8" font-weight="600" fill="white" transform="rotate(-90, 42, 425)">EXIT W</text>
+
+  <!-- ═══ LABELS ═══ -->
+  <text x="450" y="710" font-family="Roboto Mono, monospace" font-size="9" fill="#BDC1C6" text-anchor="middle">AEGIS CRISISHUB — VENUE FLOOR PLAN v2.0</text>
+</svg>

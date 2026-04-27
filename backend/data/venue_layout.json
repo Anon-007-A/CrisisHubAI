@@ -1,0 +1,262 @@
+{
+  "venue": {
+    "name": "Aegis Resort & Convention Center",
+    "floors": 3,
+    "dimensions": {"width": 1200, "height": 800}
+  },
+  "zones": [
+    {
+      "id": "kitchen",
+      "name": "Kitchen",
+      "floor": 1,
+      "zone_type": "kitchen",
+      "coordinates": {"x": 50, "y": 50, "width": 150, "height": 120},
+      "exits": ["corridor_1f_a", "corridor_1f_b"],
+      "capacity": 50,
+      "cctv_nodes": ["cam_kitchen_01", "cam_kitchen_02"],
+      "sensor_nodes": ["thermal_k01", "smoke_k01"]
+    },
+    {
+      "id": "restaurant",
+      "name": "Restaurant",
+      "floor": 1,
+      "zone_type": "room",
+      "coordinates": {"x": 220, "y": 50, "width": 200, "height": 120},
+      "exits": ["corridor_1f_a", "exit_east"],
+      "capacity": 200,
+      "cctv_nodes": ["cam_rest_01"],
+      "sensor_nodes": []
+    },
+    {
+      "id": "corridor_1f_a",
+      "name": "Corridor 1F-A",
+      "floor": 1,
+      "zone_type": "corridor",
+      "coordinates": {"x": 50, "y": 200, "width": 150, "height": 80},
+      "exits": ["kitchen", "restaurant", "lobby", "stairwell_a"],
+      "capacity": 100,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "corridor_1f_b",
+      "name": "Corridor 1F-B",
+      "floor": 1,
+      "zone_type": "corridor",
+      "coordinates": {"x": 220, "y": 200, "width": 150, "height": 80},
+      "exits": ["kitchen", "lobby", "exit_south", "stairwell_b"],
+      "capacity": 80,
+      "cctv_nodes": ["cam_corr_b01"],
+      "sensor_nodes": ["smoke_cb01"]
+    },
+    {
+      "id": "lobby",
+      "name": "Main Lobby",
+      "floor": 1,
+      "zone_type": "lobby",
+      "coordinates": {"x": 420, "y": 50, "width": 200, "height": 150},
+      "exits": ["corridor_1f_a", "corridor_1f_b", "exit_main", "elevator_a"],
+      "capacity": 300,
+      "cctv_nodes": ["cam_lobby_01", "cam_lobby_02"],
+      "sensor_nodes": []
+    },
+    {
+      "id": "front_desk",
+      "name": "Front Desk",
+      "floor": 1,
+      "zone_type": "office",
+      "coordinates": {"x": 650, "y": 50, "width": 100, "height": 80},
+      "exits": ["lobby"],
+      "capacity": 20,
+      "cctv_nodes": ["cam_fd_01"],
+      "sensor_nodes": []
+    },
+    {
+      "id": "clinic",
+      "name": "Medical Clinic",
+      "floor": 1,
+      "zone_type": "medical",
+      "coordinates": {"x": 420, "y": 220, "width": 100, "height": 100},
+      "exits": ["lobby", "corridor_1f_b"],
+      "capacity": 30,
+      "cctv_nodes": ["cam_clinic_01"],
+      "sensor_nodes": ["aed_01"]
+    },
+    {
+      "id": "pool_deck",
+      "name": "Pool Deck",
+      "floor": 1,
+      "zone_type": "room",
+      "coordinates": {"x": 70, "y": 350, "width": 250, "height": 200},
+      "exits": ["exit_west", "stairwell_a"],
+      "capacity": 150,
+      "cctv_nodes": ["cam_pool_01"],
+      "sensor_nodes": []
+    },
+    {
+      "id": "stairwell_a",
+      "name": "Stairwell A",
+      "floor": 1,
+      "zone_type": "stairwell",
+      "coordinates": {"x": 50, "y": 320, "width": 50, "height": 80},
+      "exits": ["corridor_1f_a", "pool_deck", "floor_2_stair_a", "exit_north"],
+      "capacity": 50,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "stairwell_b",
+      "name": "Stairwell B",
+      "floor": 1,
+      "zone_type": "stairwell",
+      "coordinates": {"x": 380, "y": 320, "width": 50, "height": 80},
+      "exits": ["corridor_1f_b", "floor_2_stair_b", "exit_south"],
+      "capacity": 50,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "exit_main",
+      "name": "Main Exit",
+      "floor": 1,
+      "zone_type": "exit",
+      "coordinates": {"x": 550, "y": 30, "width": 60, "height": 30},
+      "exits": [],
+      "capacity": 200,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "exit_east",
+      "name": "East Service Exit",
+      "floor": 1,
+      "zone_type": "exit",
+      "coordinates": {"x": 430, "y": 120, "width": 30, "height": 60},
+      "exits": [],
+      "capacity": 150,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "exit_south",
+      "name": "South Emergency Exit",
+      "floor": 1,
+      "zone_type": "exit",
+      "coordinates": {"x": 270, "y": 310, "width": 30, "height": 60},
+      "exits": [],
+      "capacity": 100,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "exit_west",
+      "name": "West Pool Exit",
+      "floor": 1,
+      "zone_type": "exit",
+      "coordinates": {"x": 50, "y": 450, "width": 30, "height": 60},
+      "exits": [],
+      "capacity": 120,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "exit_north",
+      "name": "North Service Exit",
+      "floor": 1,
+      "zone_type": "exit",
+      "coordinates": {"x": 75, "y": 30, "width": 30, "height": 30},
+      "exits": [],
+      "capacity": 80,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "assembly_point_a",
+      "name": "Assembly Point A",
+      "floor": 1,
+      "zone_type": "assembly_point",
+      "coordinates": {"x": 750, "y": 150, "width": 100, "height": 100},
+      "exits": [],
+      "capacity": 500,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "assembly_point_b",
+      "name": "Assembly Point B",
+      "floor": 1,
+      "zone_type": "assembly_point",
+      "coordinates": {"x": 900, "y": 350, "width": 100, "height": 100},
+      "exits": [],
+      "capacity": 400,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "floor_2_hallway",
+      "name": "2nd Floor Hallway",
+      "floor": 2,
+      "zone_type": "corridor",
+      "coordinates": {"x": 50, "y": 50, "width": 400, "height": 100},
+      "exits": ["room_201", "room_202", "room_203", "stairwell_a", "stairwell_b"],
+      "capacity": 100,
+      "cctv_nodes": ["cam_f2_hall"],
+      "sensor_nodes": []
+    },
+    {
+      "id": "room_201",
+      "name": "Room 201",
+      "floor": 2,
+      "zone_type": "room",
+      "coordinates": {"x": 60, "y": 180, "width": 80, "height": 70},
+      "exits": ["floor_2_hallway"],
+      "capacity": 4,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "room_202",
+      "name": "Room 202",
+      "floor": 2,
+      "zone_type": "room",
+      "coordinates": {"x": 170, "y": 180, "width": 80, "height": 70},
+      "exits": ["floor_2_hallway"],
+      "capacity": 4,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "room_203",
+      "name": "Room 203",
+      "floor": 2,
+      "zone_type": "room",
+      "coordinates": {"x": 280, "y": 180, "width": 80, "height": 70},
+      "exits": ["floor_2_hallway"],
+      "capacity": 4,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "floor_2_stair_a",
+      "name": "Stairwell A - 2nd Floor",
+      "floor": 2,
+      "zone_type": "stairwell",
+      "coordinates": {"x": 50, "y": 280, "width": 50, "height": 80},
+      "exits": ["floor_2_hallway"],
+      "capacity": 50,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    },
+    {
+      "id": "floor_2_stair_b",
+      "name": "Stairwell B - 2nd Floor",
+      "floor": 2,
+      "zone_type": "stairwell",
+      "coordinates": {"x": 380, "y": 280, "width": 50, "height": 80},
+      "exits": ["floor_2_hallway"],
+      "capacity": 50,
+      "cctv_nodes": [],
+      "sensor_nodes": []
+    }
+  ]
+}

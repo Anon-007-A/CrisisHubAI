@@ -1,0 +1,7 @@
+[
+{"id": "r1", "name": "Alex Chen",   "role": "fire_team",  "status": "available", "location": "fire_station"},
+{"id": "r2", "name": "Sarah Kim",   "role": "medical",    "status": "available", "location": "clinic"},
+{"id": "r3", "name": "Mike Torres", "role": "security",   "status": "available", "location": "lobby"},
+{"id": "r4", "name": "Priya Nair",  "role": "management", "status": "available", "location": "office"},
+{"id": "r5", "name": "James Wu",    "role": "security",   "status": "available", "location": "corridor_1f_a"}
+]
