@@ -11,6 +11,13 @@ export const apiClient = axios.create({
   timeout: 5000,
 });
 
+// Add Authorization header to every request
+apiClient.interceptors.request.use((config) => {
+  const token = import.meta.env.VITE_CRISISUB_API_KEY || 'demo-key-2026';
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
 function unwrapError(error, fallbackMessage) {
   return error?.response?.data?.detail || error?.message || fallbackMessage;
 }
